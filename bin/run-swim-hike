@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require './lib/run_swim_hike_nyc'
+
+gem = RunSwimHike::CLI.new
+gem.call
