@@ -4,18 +4,13 @@ require 'launchy'
 
 class Run
   attr_accessor :borough, :name, :prop_id, :size, :track_type, :location, :lat, :lon
+  @@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]
   @@all = []
   @@parks = []
 
   def initialize(name)
     @name = name
     @@all << self
-  end
-
-  def self.names
-    self.all.each_with_index do |x, i|
-      puts "#{i+1}: #{x.name}"
-    end
   end
 
   def self.load_borough(cli_input)
@@ -47,7 +42,7 @@ class Run
     if input.to_i != 0 && input.to_i <= @@parks.size
       parks(input)
     elsif input == "exit"
-      abort("Have a nice day!")
+      quit
     else
       clear
       puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
@@ -71,7 +66,7 @@ class Run
     elsif input == "reset"
       reset
     elsif input == "exit"
-      abort("Have a nice day!")
+      quit
     else
       parks(cli_input)
     end
@@ -88,10 +83,6 @@ class Run
     RunSwimHike::CLI.new
   end
 
-  def self.park_list
-    @@parks
-  end
-
   def self.clear
     print "\e[2J\e[f"
   end
@@ -105,6 +96,11 @@ class Run
       sleep 0.1
       break if (n % 6).zero?
     end
+  end
+
+  def self.quit
+    puts " \n"
+    abort("#{@@farewell.sample} \n ")
   end
 
            

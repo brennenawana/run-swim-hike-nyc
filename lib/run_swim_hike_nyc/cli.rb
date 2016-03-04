@@ -75,40 +75,87 @@ class RunSwimHike::CLI
   def run_bronx
     puts " \n"
     Run.load_borough("Bronx")
-    input = gets.strip
-    Run.parks(input)
   end
 
   def run_brooklyn
     puts " \n"
     Run.load_borough("Brooklyn")
-    input = gets.strip
-    Run.parks(input)
   end
 
   def run_manhattan
     puts " \n"
     Run.load_borough("Manhattan")
-    input = gets.strip
-    Run.parks(input)
   end
 
   def run_queens
     puts " \n"
     Run.load_borough("Queens")
-    input = gets.strip
-    Run.parks(input)
   end
 
   def run_staten_island
     puts " \n"
     Run.load_borough("Staten Island")
-    input = gets.strip
-    Run.parks(input)
+  end
+
+####### SWIM #######
+
+  def swim_boroughs
+    SwimScraper.new.call
+    swim_menu
+  end
+
+  def swim_menu
+    puts " \nWhere would you like to Swim?"
+    puts " \n1. Bronx\n2. Brooklyn\n3. Manhattan\n4. Queens\n5. Staten Island"
+    spinny
+    borough = gets.strip
+    if borough.to_s == "1"
+      swim_bronx
+    elsif borough.to_s == "2"
+      swim_brooklyn
+    elsif borough.to_s == "3"
+      swim_manhattan
+    elsif borough.to_s == "4"
+      swim_queens
+    elsif borough.to_s == "5"
+      swim_staten_island
+    elsif borough == "exit"
+      abort("Have a nice day!") 
+    else
+      clear
+      puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
+      swim_menu
+    end
+  end
+
+
+  def swim_bronx
+    puts " \n"
+    Swim.load_borough("Bronx")
+  end
+
+  def swim_brooklyn
+    puts " \n"
+    Swim.load_borough("Brooklyn")
+  end
+
+  def swim_manhattan
+    puts " \n"
+    Swim.load_borough("Manhattan")
+  end
+
+  def swim_queens
+    puts " \n"
+    Swim.load_borough("Queens")
+  end
+
+  def swim_staten_island
+    puts " \n"
+    Swim.load_borough("Staten Island")
   end
 
 ####### EXTRA FEATURES #######
-    def clear
+  def clear
     print "\e[2J\e[f"
   end
 

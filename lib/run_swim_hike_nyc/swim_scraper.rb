@@ -1,14 +1,24 @@
+require 'pry'
+require 'nokogiri'
+require 'open-uri'
+
 class SwimScraper
 
-  attr_accessor :names, :prop_id, :size, :location, :boroughs, :lat, :lon
-  @@run = {}
-  @@objects = []
+  attr_accessor :prop_id, :names, :location, :phone, :pools_type, :setting, :size, :accessible, :borough, :lat, :lon
+  @@swim = {}
+
   def initialize
-    @names = []
     @prop_id = []
-    @size = []
+    @names = []
     @location = []
-    @boroughs = {}
+    @phone = []
+    @pools_type = []
+    @setting = []
+    @size = []
+    @accessible = []
+    @lat = []
+    @lon = []
+    @borough = []
   end
 
   def call
@@ -16,132 +26,144 @@ class SwimScraper
   end
 
   def collect_and_create
-    xml = open("http://www.nycgovparks.org/bigapps/DPR_RunningTracks_001.xml")
+    xml = open("http://www.nycgovparks.org/bigapps/DPR_Pools_001.xml")
     doc = Nokogiri::HTML(xml)
     facilities = doc.xpath("//facility")
-    names = facilities.xpath("//name")
     prop_id = facilities.xpath("//prop_id")
-    size = facilities.xpath("//size")
+    names = facilities.xpath("//name")
     location = facilities.xpath("//location")
-
-
-    names.each do |name|
-      @names << name.text.to_s
-      @@run[:names] = @names
-    end
+    phone = facilities.xpath("//phone")
+    pools_type = facilities.xpath("//pools_type")
+    setting = facilities.xpath("//setting")
+    size = facilities.xpath("//size")
+    accessible = facilities.xpath("//accessible")
+    lat = facilities.xpath("//lat")
+    lon = facilities.xpath("//lon")
 
     prop_id.each do |id|
       @prop_id << id.text.to_s
-      @@run[:prop_id] = @prop_id
+      @@swim[:prop_id] = @prop_id
     end
 
-    size.each do |size|
-      @size << size.text.to_s
-      @@run[:size] = @size
+    names.each do |name|
+      @names << name.text.to_s
+      @@swim[:names] = @names
     end
 
     location.each do |location|
       @location << location.text.to_s
-      @@run[:location] = @location
+      @@swim[:location] = @location
     end
 
-    @@run[:names].each do |name|
+    phone.each do |phone|
+      @phone << phone.text.to_s
+      @@swim[:phone] = @phone
+    end
+
+    pools_type.each do |pools_type|
+      @pools_type << pools_type.text.to_s
+      @@swim[:pools_type] = @pools_type
+    end
+
+    setting.each do |setting|
+      @setting << setting.text.to_s
+      @@swim[:setting] = @setting
+    end
+
+    size.each do |size|
+      @size << size.text.to_s
+      @@swim[:size] = @size
+    end
+    
+    accessible.each do |accessible|
+      @accessible << accessible.text.to_s
+      @@swim[:accessible] = @accessible
+    end
+
+    lat.each do |lat|
+      @lat << lat.text.to_s
+      @@swim[:lat] = @lat
+    end
+
+    lon.each do |lon|
+      @lon << lon.text.to_s
+      @@swim[:lon] = @lon
+    end
+
+    @@swim[:names].each do |name|
       temp = Swim.new(name)
     end
 
     counter = 0
-    Run.all.each do |instance|
-      instance.prop_id = @@run[:prop_id][counter]
+    Swim.all.each do |instance|
+      instance.prop_id = @@swim[:prop_id][counter]
+      if instance.prop_id.start_with?("X")
+        instance.borough = "Bronx"
+      elsif instance.prop_id.start_with?("B")
+        instance.borough = "Brooklyn"
+      elsif instance.prop_id.start_with?("M")
+        instance.borough = "Manhattan"
+      elsif instance.prop_id.start_with?("Q")
+        instance.borough = "Queens"
+      elsif instance.prop_id.start_with?("R")
+        instance.borough = "Staten Island"
+      end
       counter += 1
     end
 
     counter = 0
-    Run.all.each do |instance|
-      instance.size = @@run[:size][counter]
+    Swim.all.each do |instance|
+      instance.location = @@swim[:location][counter]
       counter += 1
     end
 
     counter = 0
-    Run.all.each do |instance|
-      instance.location = @@run[:location][counter]
+    Swim.all.each do |instance|
+      instance.phone = @@swim[:phone][counter]
       counter += 1
     end
-    
-    binding.pry
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.pools_type = @@swim[:pools_type][counter]
+      counter += 1
+    end
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.setting = @@swim[:setting][counter]
+      counter += 1
+    end
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.size = @@swim[:size][counter]
+      counter += 1
+    end
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.accessible = @@swim[:accessible][counter]
+      counter += 1
+    end
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.lat = @@swim[:lat][counter]
+      counter += 1
+    end
+
+    counter = 0
+    Swim.all.each do |instance|
+      instance.lon = @@swim[:lon][counter]
+      counter += 1
+    end
   end
-
+    
 
   def all
-    @@run
+    @@swim
   end
 
-
-  # def index_boroughs
-  #   bronx = []
-  #   brooklyn = []
-  #   manhattan = []
-  #   queens = []
-  #   staten_island = []
-
-  #   hash = Hash[@prop_id.map.with_index.to_a]
-  #   hash.each do |prop_id, array_position|
-  #     if prop_id.start_with?("X")
-  #       bronx << array_position
-  #     elsif prop_id.start_with?("B")
-  #       brooklyn << array_position
-  #     elsif prop_id.start_with?("M")
-  #       manhattan << array_position
-  #     elsif prop_id.start_with?("Q")
-  #       queens << array_position
-  #     elsif prop_id.start_with?("R")
-  #       staten_island << array_position          
-  #     end
-  #   end
-  #   @boroughs[:bronx] = bronx
-  #   @boroughs[:brooklyn] = brooklyn
-  #   @boroughs[:manhattan] = manhattan
-  #   @boroughs[:queens] = queens
-  #   @boroughs[:staten_island] = staten_island
-  # end
-
-  # def bronx
-  #   @boroughs[:bronx].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-  # def brooklyn
-  #   @boroughs[:brooklyn].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-  # def manhattan
-  #   @boroughs[:manhattan].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-  # def queens
-  #   @boroughs[:queens].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-  # def staten_island
-  #   @boroughs[:staten_island].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-
-  # def list_names
-  #   @names.each_with_index do |name, i|
-  #     puts "#{i+1}: #{name}"
-  #   end
-  # end
-
-
-
-
 end
+

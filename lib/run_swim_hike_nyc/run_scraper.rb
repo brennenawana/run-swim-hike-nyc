@@ -5,7 +5,6 @@ require 'open-uri'
 class RunScraper
   attr_accessor :names, :prop_id, :size, :location, :boroughs, :lat, :lon, :track_type
   @@run = {}
-  @@objects = []
 
   def initialize
     @names = []
