@@ -1,150 +1,126 @@
 require 'pry'
-require 'nokogiri'
-require 'open-uri'
 
 class RunSwimHike::CLI
-  attr_accessor :names, :prop_id, :size, :location, :boroughs, :lat, :lon
-  @@run = {}
-  @@objects = []
+@@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]
+
   def initialize
-    @names = []
-    @prop_id = []
-    @size = []
-    @location = []
-    @boroughs = {}
+    opening_greeting
   end
 
-  def call
-    collect_and_create
+  def opening_greeting
+    puts " \n*** Welcome to RunSwimHike NYC! ***\n "
+    spinny
+    first_menu
   end
 
-  def collect_and_create
-    xml = open("http://www.nycgovparks.org/bigapps/DPR_RunningTracks_001.xml")
-    doc = Nokogiri::HTML(xml)
-    facilities = doc.xpath("//facility")
-    names = facilities.xpath("//name")
-    prop_id = facilities.xpath("//prop_id")
-    size = facilities.xpath("//size")
-    location = facilities.xpath("//location")
-
-
-    names.each do |name|
-      @names << name.text.to_s
-      @@run[:names] = @names
-    end
-
-    prop_id.each do |id|
-      @prop_id << id.text.to_s
-      @@run[:prop_id] = @prop_id
-    end
-
-    size.each do |size|
-      @size << size.text.to_s
-      @@run[:size] = @size
-    end
-
-    location.each do |location|
-      @location << location.text.to_s
-      @@run[:location] = @location
-    end
-
-    @@run[:names].each do |name|
-      temp = Run.new(name)
-    end
-
-    counter = 0
-    Run.all.each do |instance|
-      instance.prop_id = @@run[:prop_id][counter]
-      counter += 1
-    end
-
-    counter = 0
-    Run.all.each do |instance|
-      instance.size = @@run[:size][counter]
-      counter += 1
-    end
-
-    counter = 0
-    Run.all.each do |instance|
-      instance.location = @@run[:location][counter]
-      counter += 1
-    end
-    
-    binding.pry
+  def first_menu
+    puts "What would you like to do?"
+    puts "1. Run\n2. Swim\n3. Hike"
+    menu
   end
 
+  def menu
+    input = gets.strip
+    if input.to_s == "1"
+      run_boroughs
+    elsif input.to_s == "2"
+      swim_boroughs
+    elsif input.to_s == "3"
+      hike_boroughs
+    elsif input == "exit"
+      quit
+    else
+      clear
+      puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
+      opening_greeting           
+    end
+  end
 
-  def all
-    @@run
+  def quit
+    puts " \n"
+    abort("#{@@farewell.sample} \n ")
+  end
+
+####### RUN #######
+  def run_boroughs
+    RunScraper.new.call
+    run_menu
+  end
+
+  def run_menu
+    puts " \nWhere would you like to Run?"
+    puts " \n1. Bronx\n2. Brooklyn\n3. Manhattan\n4. Queens\n5. Staten Island"
+    spinny
+    borough = gets.strip
+    if borough.to_s == "1"
+      run_bronx
+    elsif borough.to_s == "2"
+      run_brooklyn
+    elsif borough.to_s == "3"
+      run_manhattan
+    elsif borough.to_s == "4"
+      run_queens
+    elsif borough.to_s == "5"
+      run_staten_island
+    elsif borough == "exit"
+      abort("Have a nice day!") 
+    else
+      clear
+      puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
+      run_menu
+    end
   end
 
 
-  # def index_boroughs
-  #   bronx = []
-  #   brooklyn = []
-  #   manhattan = []
-  #   queens = []
-  #   staten_island = []
+  def run_bronx
+    puts " \n"
+    Run.load_borough("Bronx")
+    input = gets.strip
+    Run.parks(input)
+  end
 
-  #   hash = Hash[@prop_id.map.with_index.to_a]
-  #   hash.each do |prop_id, array_position|
-  #     if prop_id.start_with?("X")
-  #       bronx << array_position
-  #     elsif prop_id.start_with?("B")
-  #       brooklyn << array_position
-  #     elsif prop_id.start_with?("M")
-  #       manhattan << array_position
-  #     elsif prop_id.start_with?("Q")
-  #       queens << array_position
-  #     elsif prop_id.start_with?("R")
-  #       staten_island << array_position          
-  #     end
-  #   end
-  #   @boroughs[:bronx] = bronx
-  #   @boroughs[:brooklyn] = brooklyn
-  #   @boroughs[:manhattan] = manhattan
-  #   @boroughs[:queens] = queens
-  #   @boroughs[:staten_island] = staten_island
-  # end
+  def run_brooklyn
+    puts " \n"
+    Run.load_borough("Brooklyn")
+    input = gets.strip
+    Run.parks(input)
+  end
 
-  # def bronx
-  #   @boroughs[:bronx].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
+  def run_manhattan
+    puts " \n"
+    Run.load_borough("Manhattan")
+    input = gets.strip
+    Run.parks(input)
+  end
 
-  # def brooklyn
-  #   @boroughs[:brooklyn].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
+  def run_queens
+    puts " \n"
+    Run.load_borough("Queens")
+    input = gets.strip
+    Run.parks(input)
+  end
 
-  # def manhattan
-  #   @boroughs[:manhattan].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
+  def run_staten_island
+    puts " \n"
+    Run.load_borough("Staten Island")
+    input = gets.strip
+    Run.parks(input)
+  end
 
-  # def queens
-  #   @boroughs[:queens].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
+####### EXTRA FEATURES #######
+    def clear
+    print "\e[2J\e[f"
+  end
 
-  # def staten_island
-  #   @boroughs[:staten_island].each_with_index do |array_position, i|
-  #     puts "#{i+1}: #{@names[array_position]}"
-  #   end
-  # end
-
-
-  # def list_names
-  #   @names.each_with_index do |name, i|
-  #     puts "#{i+1}: #{name}"
-  #   end
-  # end
-
-
-
+  def spinny
+    n=0
+    a=["-","\\","|","/"].cycle do |a|
+      print a
+      print "\b"
+      n+=1
+      sleep 0.1
+      break if (n % 6).zero?
+    end
+  end
 
 end
