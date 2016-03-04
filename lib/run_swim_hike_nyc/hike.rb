@@ -2,8 +2,8 @@ require 'pry'
 require 'rubygems'
 require 'launchy'
 
-class Run
-  attr_accessor :borough, :name, :prop_id, :size, :track_type, :location, :lat, :lon
+class Hike
+  attr_accessor :prop_id, :name, :location, :park_name, :length, :difficulty, :other_details, :accessible, :borough
   @@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]
   @@all = []
   @@parks = []
@@ -13,10 +13,10 @@ class Run
     @@all << self
   end
 
-  def self.load_borough(cli_input)
-    self.all.each do |track|
-      if track.borough == cli_input
-        @@parks << track unless @@parks.include?(track)
+def self.load_borough(cli_input)
+    self.all.each do |hike|
+      if hike.borough == cli_input
+        @@parks << hike unless @@parks.include?(hike)
       end
     end
     display_borough("#{@@parks[0].borough}")
@@ -25,12 +25,12 @@ class Run
   def self.display_borough(borough)
     spinny
     index = 0
-    puts " \nHere are the Running Tracks in #{borough}: \n "
+    puts " \nHere are the Hiking Paths in #{borough}: \n "
     spinny
-    @@parks.each do |track|
-      if track.borough == borough
-        @@parks << track unless @@parks.include?(track)
-        puts "#{index+1}. #{track.name} - #{track.location}"
+    @@parks.each do |hike|
+      if hike.borough == borough
+        @@parks << hike unless @@parks.include?(hike)
+        puts "#{index+1}. #{hike.name} - #{hike.location}"
         index += 1
         sleep(0.04)
       end
@@ -52,15 +52,23 @@ class Run
     end
   end
 
-
+@prop_id = []
+    @names = []
+    @location = []
+    @park_name = []
+    @length = []
+    @difficulty = []
+    @other_details = []
+    @accessible = []
+    @borough = []
   def self.parks(cli_input)
     clear
     display = @@parks[cli_input.to_i-1]
-    puts " \n#{display.name}: \n \nBorough:  #{display.borough} \nLocation:  #{display.location} \nSize:  #{display.size} mile(s)\nRunning Track Type:  #{display.track_type} "
+    puts " \n#{display.name}: \n \nBorough:  #{display.borough} \nLocation:  #{display.location} \nPark Name:  #{display.park_name} \nLength:  #{display.length} \nDifficulty:  #{display.difficulty} \nOther Details: #{display.other_details} \nWheelchair Accessible: #{display.accessible} "
     puts " \nOptions:\n'open' to display in Google Maps\n'back' to see search results in #{display.borough}\n'reset' to return to main menu"
     input = gets.strip
     if input == "open"
-      Launchy.open("https://www.google.com/maps/place/#{display.name}/@#{display.lat},#{display.lon},18z")
+      Launchy.open("https://www.google.com/maps/place/#{display.park_name}")
       self.parks(cli_input)
     elsif input == "back"
       clear
@@ -73,7 +81,7 @@ class Run
       parks(cli_input)
     end
   end
-  
+
   def self.all
     @@all
   end

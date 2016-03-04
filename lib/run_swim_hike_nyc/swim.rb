@@ -23,16 +23,23 @@ class Swim
           @@parks << pool unless @@parks.include?(pool)
         end
       end
-      display_borough("#{@@parks[0].borough}", "Indoor") 
+      if @@parks.size != 0
+        display_borough(cli_input, "Indoor")
+      else
+        puts " \nSorry! There are no Indoor pools at the moment."
+        load_borough(cli_input)
+      end
     elsif input.to_s == "2"
       self.all.each do |pool|
         if pool.borough == cli_input && pool.setting == "Outdoor"
           @@parks << pool unless @@parks.include?(pool)
         end
       end
-      display_borough("#{@@parks[0].borough}", "Outdoor")
+      display_borough(cli_input, "Outdoor")
     elsif input == "exit"
       quit
+    elsif input == "reset"
+      reset
     else
       clear
       puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
@@ -60,6 +67,8 @@ class Swim
       parks(input)
     elsif input == "exit"
       quit
+    elsif input == "reset"
+      reset
     else
       clear
       puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"

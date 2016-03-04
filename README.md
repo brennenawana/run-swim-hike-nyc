@@ -1,8 +1,8 @@
-# RunSwimHikeNyc
+# RunSwimHikeNYC
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/run_swim_hike_nyc`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to RunSwimHikeNYC! This is a simple Gem allowing you to discover all the places to Run, Swim or Hike in all five boroughs of NYC. All information is provided by and scraped from http://www.nycgovparks.org/
 
-TODO: Delete this and the text above, and describe your gem
+Enjoy, contribute and comment!
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Use the numbered menus to navigate. Type 'exit' at anytime to quit the program.
 
 ## Development
 

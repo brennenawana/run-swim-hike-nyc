@@ -63,7 +63,7 @@ class RunSwimHike::CLI
     elsif borough.to_s == "5"
       run_staten_island
     elsif borough == "exit"
-      abort("Have a nice day!") 
+      abort("Have a nice day!")
     else
       clear
       puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
@@ -154,7 +154,65 @@ class RunSwimHike::CLI
     Swim.load_borough("Staten Island")
   end
 
+  ####### Hike #######
+
+  def hike_boroughs
+    HikeScraper.new.call
+    hike_menu
+  end
+
+  def hike_menu
+    puts " \nWhere would you like to Hike?"
+    puts " \n1. Bronx\n2. Brooklyn\n3. Manhattan\n4. Queens\n5. Staten Island"
+    spinny
+    borough = gets.strip
+    if borough.to_s == "1"
+      hike_bronx
+    elsif borough.to_s == "2"
+      hike_brooklyn
+    elsif borough.to_s == "3"
+      hike_manhattan
+    elsif borough.to_s == "4"
+      hike_queens
+    elsif borough.to_s == "5"
+      hike_staten_island
+    elsif borough == "exit"
+      abort("Have a nice day!") 
+    else
+      clear
+      puts " \n--------------------------------------\nPlease choose a number from the menu:\n--------------------------------------"
+      swim_menu
+    end
+  end
+
+
+  def hike_bronx
+    puts " \n"
+    Hike.load_borough("Bronx")
+  end
+
+  def hike_brooklyn
+    puts " \n"
+    Hike.load_borough("Brooklyn")
+  end
+
+  def hike_manhattan
+    puts " \n"
+    Hike.load_borough("Manhattan")
+  end
+
+  def hike_queens
+    puts " \n"
+    Hike.load_borough("Queens")
+  end
+
+  def hike_staten_island
+    puts " \n"
+    Hike.load_borough("Staten Island")
+  end
+
 ####### EXTRA FEATURES #######
+
   def clear
     print "\e[2J\e[f"
   end
