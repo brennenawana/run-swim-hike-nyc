@@ -22,8 +22,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = ["run_swim_hike_nyc"]
+  spec.executables   = ["run-swim-hike"]
   spec.require_paths = ["lib", "lib/run_swim_hike_nyc"]
 
   spec.add_development_dependency "bundler", "~> 1.11"
