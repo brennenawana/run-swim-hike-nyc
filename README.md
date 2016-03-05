@@ -1,6 +1,6 @@
 # RunSwimHikeNYC
 
-Welcome to RunSwimHikeNYC! This is a simple Gem allowing you to discover all the places to Run, Swim or Hike in all five boroughs of NYC. All information is provided by and scraped from http://www.nycgovparks.org/
+Welcome to RunSwimHikeNYC! This is a simple CLI Gem allowing you to discover all the places to Run, Swim or Hike in all five boroughs of NYC. All information is provided by and scraped from http://www.nycgovparks.org/
 
 Enjoy, contribute and comment!
 
@@ -9,7 +9,7 @@ Enjoy, contribute and comment!
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'run_swim_hike_nyc'
+gem 'run-swim-hike-nyc'
 ```
 
 And then execute:
@@ -18,11 +18,15 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install run_swim_hike_nyc
+    $ gem install run-swim-hike-nyc
 
 ## Usage
 
-Use the numbered menus to navigate. Type 'exit' at anytime to quit the program.
+Type 'run-swim-hike' in your command line to run gem.
+
+Use the numbered menus to navigate:
+- Type 'exit' at anytime to quit the program.
+- Type 'reset' at anytime to return to the main menu.
 
 ## Development
 
@@ -32,7 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/run_swim_hike_nyc. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/run-swim-hike-nyc. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

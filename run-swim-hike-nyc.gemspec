@@ -1,10 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'run_swim_hike_nyc/version'
+require 'run-swim-hike-nyc/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "run_swim_hike_nyc"
+  spec.name          = "run-swim-hike-nyc"
   spec.version       = RunSwimHike::VERSION
   spec.authors       = ["the-widget"]
   spec.email         = ["brennenawana108ny@gmail.com"]
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.executables   = ["run-swim-hike"]
-  spec.require_paths = ["lib", "lib/run_swim_hike_nyc"]
+  spec.require_paths = ["lib", "lib/run-swim-hike-nyc"]
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"

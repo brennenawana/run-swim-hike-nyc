@@ -36,11 +36,6 @@ class RunSwimHike::CLI
     end
   end
 
-  def quit
-    puts " \n"
-    abort("#{@@farewell.sample} \n ")
-  end
-
 ####### RUN #######
   def run_boroughs
     RunScraper.new.call
@@ -216,6 +211,11 @@ class RunSwimHike::CLI
   def clear
     print "\e[2J\e[f"
   end
+
+  def quit
+    puts " \n"
+    abort("#{@@farewell.sample} \n ")
+  end  
 
   def spinny
     n=0
