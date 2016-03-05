@@ -2,6 +2,8 @@
 
 Welcome to RunSwimHikeNYC! This is a simple CLI Gem allowing you to discover all the places to Run, Swim or Hike in all five boroughs of NYC. All information is provided by and scraped from http://www.nycgovparks.org/
 
+Also check out my blog post about the making of this Gem at: http://the-widget.github.io/ruby/gem/cli/2016/02/29/building-a-cli-gem.html
+
 Enjoy, contribute and comment!
 
 ## Installation
