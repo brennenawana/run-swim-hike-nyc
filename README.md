@@ -22,11 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
-Type 'run-swim-hike' in your command line to run gem.
+Type `run-swim-hike` in your command line to run gem.
 
 Use the numbered menus to navigate:
-- Type 'exit' at anytime to quit the program.
-- Type 'reset' at anytime to return to the main menu.
+- Type `exit` at anytime to quit the program.
+- Type `reset` at anytime to return to the main menu.
 
 ## Development
 
