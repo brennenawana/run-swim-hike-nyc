@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require './lib/run-swim-hike-nyc'
+require_relative '../lib/run-swim-hike-nyc
 
 RunSwimHike::CLI.new
 
