@@ -13,6 +13,3 @@ require_relative "./run-swim-hike-nyc/swim"
 require_relative "./run-swim-hike-nyc/hike_scraper"
 require_relative "./run-swim-hike-nyc/hike"
 
-module RunSwimHike
-
-end
