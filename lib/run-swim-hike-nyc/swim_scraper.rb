@@ -1,7 +1,3 @@
-require 'pry'
-require 'nokogiri'
-require 'open-uri'
-
 class SwimScraper
 
   attr_accessor :prop_id, :names, :location, :phone, :pools_type, :setting, :size, :accessible, :borough, :lat, :lon

@@ -1,4 +1,3 @@
-require 'pry'
 
 class RunSwimHike::CLI
 @@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]

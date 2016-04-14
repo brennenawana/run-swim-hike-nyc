@@ -128,6 +128,8 @@ class RunScraper
     @@run
   end
 
+end
+
 
   # def index_boroughs
   #   bronx = []
@@ -194,4 +196,4 @@ class RunScraper
   #   end
   # end
 
-end
+

@@ -1,7 +1,3 @@
-require 'pry'
-require 'rubygems'
-require 'launchy'
-
 class Swim
   attr_accessor :prop_id, :name, :location, :phone, :pools_type, :setting, :size, :accessible, :borough, :lat, :lon
   @@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]

@@ -1,4 +1,10 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in run_swim_hike_nyc.gemspec
-gemspec
+gem "bundler"
+gem "rake"
+gem "nokogiri"
+gem 'open-uri'
+gem "pry"
+gem "rubygems"
+gem "launchy"
+

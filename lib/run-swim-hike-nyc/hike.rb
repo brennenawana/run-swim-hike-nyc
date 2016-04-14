@@ -1,6 +1,3 @@
-require 'pry'
-require 'rubygems'
-require 'launchy'
 
 class Hike
   attr_accessor :prop_id, :name, :location, :park_name, :length, :difficulty, :other_details, :accessible, :borough

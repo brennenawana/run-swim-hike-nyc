@@ -1,6 +1,3 @@
-require 'pry'
-require 'rubygems'
-require 'launchy'
 
 class Run
   attr_accessor :borough, :name, :prop_id, :size, :track_type, :location, :lat, :lon
