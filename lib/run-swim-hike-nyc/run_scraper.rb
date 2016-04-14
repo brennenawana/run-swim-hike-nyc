@@ -67,7 +67,7 @@ class RunScraper
     end
 
     @@run[:names].each do |name|
-      temp = Run.new(name)
+      Run.new(name)
     end
 
     counter = 0
