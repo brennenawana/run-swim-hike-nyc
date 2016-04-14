@@ -3,17 +3,6 @@ class RunScraper
   attr_accessor :names, :prop_id, :size, :location, :boroughs, :lat, :lon, :track_type
   @@run = {}
 
-  def initialize
-    @names = []
-    @prop_id = []
-    @size = []
-    @location = []
-    @track_type = []
-    @lat = []
-    @lon = []
-    @boroughs = {}
-  end
-
   def call
     collect_and_create
   end
