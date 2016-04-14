@@ -70,9 +70,8 @@ class RunScraper
       Run.new(name)
     end
 
-    counter = 0
-    Run.all.each do |instance|
-      instance.prop_id = @@run[:prop_id][counter]
+    Run.all.each_with_index do |instance, i|
+      instance.prop_id = @@run[:prop_id][i]
       if instance.prop_id.start_with?("X")
         instance.borough = "Bronx"
       elsif instance.prop_id.start_with?("B")
@@ -84,7 +83,6 @@ class RunScraper
       elsif instance.prop_id.start_with?("R")
         instance.borough = "Staten Island"
       end
-      counter += 1
     end
 
     counter = 0
