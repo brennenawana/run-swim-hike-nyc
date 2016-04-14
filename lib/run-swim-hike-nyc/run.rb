@@ -1,6 +1,6 @@
 
 class Run
-  attr_accessor :borough, :name, :prop_id, :size, :track_type, :location, :lat, :lon
+  attr_accessor :name, :prop_id, :size, :track_type, :location, :lat, :lon
   @@farewell = ["Have a nice day!", "Take care of yourself!", "You'll never regret some good excercise!", "Have fun!", "Thanks for checking us out!", "Keep running, swimming and hiking!", ":)"]
   @@all = []
   @@parks = []
@@ -107,5 +107,18 @@ class Run
       park_select(cli_input)
     end
   end
-           
+         
+   def borough
+      if @prop_id[0,1] == "X"
+        return "Bronx"
+      elsif @prop_id[0,1] == "B"
+        return "Brooklyn"
+      elsif @prop_id[0,1] == "M"
+        return "Manhattan"
+      elsif @prop_id[0,1] == "Q"
+        return "Queens"
+      elsif @prop_id[0,1] == "R"
+        return "Staten Island"
+      end
+    end
 end
