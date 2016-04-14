@@ -1,6 +1,3 @@
-require 'pry'
-require 'nokogiri'
-require 'open-uri'
 
 class RunScraper
   attr_accessor :names, :prop_id, :size, :location, :boroughs, :lat, :lon, :track_type
